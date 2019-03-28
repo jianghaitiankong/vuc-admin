@@ -72,15 +72,16 @@
                 editVisible: false,
                 delVisible: false,
                 total: 0,
-                adminList: [{
-                	mediaId:1,
-					mediaName: "创投实战商学院开学典礼",
-					updateTime: "2019-02-19"
-				}, {
-					mediaId:2,
-					mediaName: "江海天空2019战略发布会",
-					updateTime: "2019-02-19"
-                }],
+                // adminList: [{
+                // 	mediaId:1,
+				// 	mediaName: "创投实战商学院开学典礼",
+				// 	updateTime: "2019-02-19"
+				// }, {
+				// 	mediaId:2,
+				// 	mediaName: "江海天空2019战略发布会",
+				// 	updateTime: "2019-02-19"
+                // }],
+                adminList : [],
                 token: sessionStorage.getItem('token')
             }
         },
