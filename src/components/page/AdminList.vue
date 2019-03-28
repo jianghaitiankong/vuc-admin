@@ -12,14 +12,23 @@
         <el-button type="primary" icon="delete" class="handle-del mr10" @click="handleAdd">增加管理员</el-button>
       </div>
       <el-table :data="adminList" border class="table">
-        <!-- <el-table-column prop="index" label="ID"></el-table-column> -->
         <el-table-column type="index" :index="indexMethod" label="ID" width="55" align="center"></el-table-column>
         <el-table-column prop="userName" label="登录名"></el-table-column>
-        <!-- <el-table-column prop="data" label="加入时间"></el-table-column> -->
-        <el-table-column label="操作" align="center">
-          <template slot-scope="scope">
+        <el-table-column label="操作" align="center" v-if="showLook!=='1'?false:true"  >
+          <template slot-scope="scope" >
             <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
-            <el-button
+            <el-button v-show="(showLook === '1'&& scope.row.id==showLook) ? false : true" 
+              type="text"
+              icon="el-icon-delete"
+              class="red"
+              @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" v-else>
+          <template slot-scope="scope"  >
+             <el-button type="text" icon="el-icon-edit" v-show="(showLook !== '1'&& scope.row.id==showLook) ? true : false" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
+            <el-button v-show="(showLook !== '1'&& scope.row.id==showLook) ? true : false" 
               type="text"
               icon="el-icon-delete"
               class="red"
@@ -105,7 +114,9 @@ export default {
       editVisible: false,
 			delVisible: false,
 			handleType:'',
+      operation:false,
       adminList: [],
+      showLook:sessionStorage.getItem('id'),
       rules2: {
         userName: [
           {
@@ -135,6 +146,7 @@ export default {
   computed: {},
   methods: {
     getData() {
+      console.log(this)
       var that = this;
       var data = {
         curPage: that.currentPage,
@@ -143,7 +155,16 @@ export default {
       this.$request
         .post("cms/selectManager", data, that.token)
         .then(res => {
-          console.log(res.data.list);
+            res.data.list.forEach((val, index) => {
+              console.log(val,index)
+          if(val.userName === 'zhangsan'){
+            this.operation = false
+            return false
+          }else{
+            this.operation = true
+            return
+          }
+            });
           that.adminList = res.data.list;
           that.total = res.data.rowsCount; //总条数
           that.articleId = res.data.articleId;

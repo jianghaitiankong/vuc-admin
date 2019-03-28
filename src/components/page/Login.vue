@@ -65,6 +65,8 @@
 								sessionStorage.setItem('ms_username', that.ruleForm.username);
 								sessionStorage.setItem('token', res.data.token);
 								loading.close();
+								sessionStorage.setItem('id', res.data.id);	
+
 								that.$router.push('/dashboard');
 							} else {
 								loading.close();
