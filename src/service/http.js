@@ -11,8 +11,8 @@ const getConfig = function(auth) {
 	}
 	return config;
 }
-// const commonUrl = 'http://172.18.1.144:7005/officialWeb-service/'; // 测试环境
-const commonUrl = 'http://47.105.89.34:7005/officialWeb-service/'; // 生产环境
+const commonUrl = 'http://192.36.2.202:7005/officialWeb-service/'; // 测试环境
+// const commonUrl = 'http://47.105.89.34:7005/officialWeb-service/'; // 生产环境
 
 var request = {
 	get: function(url) {
